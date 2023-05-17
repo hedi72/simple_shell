@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 #define MAX_PATH_LENGTH 256
 
-int _putchar.c(char c);
+int _putchar(char c);
 void _puts(char *str);
 int _strlen(char *s);
 char *_strdup(char *str);
