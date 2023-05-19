@@ -65,3 +65,28 @@ char** split_string(char* str, const char* delim)
   array[i] = NULL;
   return (array);
 }
+/**
+ * execute - execute a command
+ * @argv: array of arg
+ */
+void execute_command(char** argv)
+{
+  if (!argv || !argv[0])
+    return;
+  pid_t child_pid = fork();
+  if (child_pid == -1)
+    {
+      perror(get_env("_"));
+      return;
+    }
+  if (child_pid == 0)
+    {
+      if (execvp(argv[0], argv) == -1)
+	{
+	  perror(argv[0]);
+	  exit(EXIT_FAILURE);
+	}
+    }
+  int status;
+  waitpid(child_pid, &status, 0);
+}
