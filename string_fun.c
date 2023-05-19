@@ -1,4 +1,3 @@
-#include "shell.h"
 
 /**
  * concat_all - concats 3 strings into a newly allocated memory
