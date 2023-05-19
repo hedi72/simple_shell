@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #ifndef SHELL_H
 #define SHELL_H
 #include <stdio.h>
@@ -63,4 +61,3 @@ void _setenv(char **arv);
 void __unsetenv(char **arv);
 
 #endif /** SHELL_H */
->>>>>>> f660e3a3e30bd66dfba5028697b98538a53a2bd4
