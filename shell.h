@@ -60,4 +60,4 @@ void cur_env(char **arv);
 void _setenv(char **arv);
 void __unsetenv(char **arv);
 
-#endif /**SHELL_H*/
+#endif /** SHELL_H */
