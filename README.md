@@ -1,2 +1,2 @@
 # simple_shell
-project c - simple shell with @Zainab Jimoh
+Project c - simple shell with @Zainab Jimoh
