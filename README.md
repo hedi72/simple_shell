@@ -1,4 +1,5 @@
 # simple_shell
+
 project c - simple shell with @Zainab Jimoh
 
 Table of contents:
@@ -65,3 +66,4 @@ List of allowed functions and system calls:
 -wait4 (man 2 wait4)
 -write (man 2 write)
 
+ 
