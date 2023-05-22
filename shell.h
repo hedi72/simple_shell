@@ -58,6 +58,6 @@ int _atoi(char *s);
 void exiit(char **arv);
 void cur_env(char **arv);
 void _setenv(char **arv);
-void __unsetenv(char **arv);
+void _unsetenv(char **arv);
 
 #endif /** SHELL_H */
