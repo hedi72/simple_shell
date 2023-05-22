@@ -4,7 +4,7 @@
  * cur_env - print the current environment
  * @arv: array of arg
  */
-void cur_env(char **arv__attribute__((unused)))
+void cur_env(char **arv __attribute__((unused)))
 {
   int i = 0;
   while (environ[i] != NULL)
