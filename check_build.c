@@ -12,21 +12,20 @@ mybuild T[] = {
 {"exit", exiit},
 {"env", cur_env},
 {"setenv", _setenv},
-{"unsetenv", __unsetenv},
+{"unsetenv", _unsetenv},
 {NULL, NULL},
 };
-for (i = 0; T[i].name; i++)
+while (Tab[i].name != NULL)
 {
-j = 0;
-if (T[i].name[j] == arv[0][j])
+while (Tab[i].name[j] != '\0' && arv[0][j] !='\0')
 {
-for (j = 0; arv[0][j]; j++)
-{
-if (T[i].name[j] != arv[0][j])
+if (Tab[i].name[j] != arv[0][j])
 break;
+j++
 }
-if (!arv[0][j])
-return (T[i].func);
+if (Tab[i].name[j] == '\0' && arv[0][j] == '\0')
+return (Tab[i].func);
+ i++;
 }
-}
+return (NULL);
 }
