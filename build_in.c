@@ -68,7 +68,7 @@ void _setenv(char **arv)
 	      while (arv[2][k])
 		{
 		  environ[i][j + 1 + k] = arv[2][k];
-		  k++
+		  k++;
 		    }
 	      environ[i][j + 1 + k] = '\0';
 	      return;
