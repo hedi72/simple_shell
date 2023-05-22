@@ -1,4 +1,4 @@
-
+#include "shell.h"
 /**
  * concat_all - concats 3 strings into a newly allocated memory
  * @name: first string
@@ -91,17 +91,17 @@ for ( ; str[i] != '\0'; i++)
 _putchar(str[i]);
 }
 
-int main()
-{
-char str1[] = "Zainab", str2[] = "Ayomiposi", str3[] = "Jimoh";
-char *src;
-int j;
-src = concat_all(str1, str2, str3);
-printf("%s\n", src);
-src = _strdup(str1);
-printf("%s\n", src);
-j = _strlen(str1);
-printf("%d\n", j);
-puts(str1);
-return (0);
-}
+// int main()
+// {
+// char str1[] = "Zainab", str2[] = "Ayomiposi", str3[] = "Jimoh";
+// char *src;
+// int j;
+// src = concat_all(str1, str2, str3);
+// printf("%s\n", src);
+// src = _strdup(str1);
+// printf("%s\n", src);
+// j = _strlen(str1);
+// printf("%d\n", j);
+// puts(str1);
+// return (0);
+// }
