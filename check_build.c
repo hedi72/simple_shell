@@ -7,7 +7,7 @@
 */
 void (*check_build(char **arv))(char **arv)
 {
-int i, j;
+int i = 0, j = 0;
 mybuild Tab[] = {
 {"exit", exiit},
 {"env", cur_env},
