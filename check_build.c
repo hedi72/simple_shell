@@ -8,7 +8,7 @@
 void (*check_build(char **arv))(char **arv)
 {
 int i, j;
-mybuild T[] = {
+mybuild Tab[] = {
 {"exit", exiit},
 {"env", cur_env},
 {"setenv", _setenv},
@@ -21,7 +21,7 @@ while (Tab[i].name[j] != '\0' && arv[0][j] !='\0')
 {
 if (Tab[i].name[j] != arv[0][j])
 break;
-j++
+j++;
 }
 if (Tab[i].name[j] == '\0' && arv[0][j] == '\0')
 return (Tab[i].func);
