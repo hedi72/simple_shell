@@ -43,11 +43,11 @@ void handle_in(char *path)
   list_path *head = linkpath(path);
   void (*f)(char **);
   signal(SIGINT, signal_handler);
-  while (len != EOF);
+  while (len != EOF)
   {
     _puts("#cisfun$ ");
     len = getline(&buff, &size, stdin);
-    _eof(len, buff);
+    _EOF(len, buff);
     args = split_string(buff, "\n");
     if (args && args[0])
       {
