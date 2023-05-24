@@ -14,7 +14,7 @@ _puts("\n#cisfun$ ");
 
 /**
  * _EOF - handle the end of the file
- * @len: value of the return getline 
+ * @len: value of the return getline
  * @buff: buffer
  */
 
@@ -37,41 +37,41 @@ exit(0);
  */
 void handle_in(char *path)
 {
-  ssize_t len = 0;
-  char *buff = NULL, *pathname, **args;
-  size_t size = 0;
-  list_path *head = linkpath(path);
-  void (*f)(char **);
-  signal(SIGINT, signal_handler);
-  while (len != EOF)
-  {
-    _puts("#cisfun$ ");
-    len = getline(&buff, &size, stdin);
-    _EOF(len, buff);
-    args = split_string(buff, "\n");
-    if (args && args[0])
-      {
-	pathname = find_path(args[0], head);
-	f = check_build(args);
-	if (f)
-	  {
-	    f(args);
-	  }
-	else if (!pathname)
-	  {
-	    execute_command(args);
-	  }
-	else
-	  {
-	    free(args[0]);
-	    args[0] = pathname;
-	    execute_command(args);
-	  }
-      }
-    free_arv(args);
-  }
-  free_list(head);
-  free(buff);
+ssize_t len = 0;
+char *buff = NULL, *pathname, **args;
+size_t size = 0;
+list_path *head = linkpath(path);
+void (*f)(char **);
+signal(SIGINT, signal_handler);
+while (len != EOF)
+{
+_puts("#cisfun$ ");
+len = getline(&buff, &size, stdin);
+_EOF(len, buff);
+args = split_string(buff, "\n");
+if (args && args[0])
+{
+pathname = find_path(args[0], head);
+f = check_build(args);
+if (f)
+{
+f(args);
+}
+else if (!pathname)
+{
+execute_command(args);
+}
+else
+{
+free(args[0]);
+args[0] = pathname;
+execute_command(args);
+}
+}
+free_arv(args);
+}
+free_list(head);
+free(buff);
 }
 
 /**
@@ -80,8 +80,8 @@ void handle_in(char *path)
  */
 int main(void)
 {
-  char *path = get_env("PATH");
-  handle_in(path);
-  free(path);
-  return (0);
+char *path = get_env("PATH");
+handle_in(path);
+free(path);
+return (0);
 }
