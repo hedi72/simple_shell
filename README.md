@@ -8,11 +8,11 @@ Table of contents:
  -Essential functionalities of the simple shell
  -List of allowed functions and system calls:
 
- 
+
 ------------------------------------------------
 * what is the shell ?
 The "shell" typically refers to a command-line interface (CLI) program in operating systems such as Unix, Linux, and macOS.
-It allows users to interact with the computer by entering commands. 
+It allows users to interact with the computer by entering commands.
 
 * About this project:
 This project is a simple version of the linux shell made by alx-holberton school taking part of the low level programming with c.
@@ -65,5 +65,3 @@ List of allowed functions and system calls:
 -wait3 (man 2 wait3)
 -wait4 (man 2 wait4)
 -write (man 2 write)
-
- 
