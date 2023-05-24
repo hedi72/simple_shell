@@ -48,7 +48,7 @@ while (len != EOF)
 _puts("#cisfun$ ");
 len = getline(&buff, &size, stdin);
 _EOF(len, buff);
-args = split_string(buff, "\n");
+args = split_string(buff, " \n");
 if (args && args[0])
 {
 pathname = find_path(args[0], head);
