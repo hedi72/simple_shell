@@ -17,7 +17,7 @@ mybuild Tab[] = {
 };
 while (Tab[i].name != NULL)
 {
-while (Tab[i].name[j] != '\0' && arv[0][j] !='\0')
+while (Tab[i].name[j] != '\0' && arv[0][j] != '\0')
 {
 if (Tab[i].name[j] != arv[0][j])
 break;
@@ -25,7 +25,7 @@ j++;
 }
 if (Tab[i].name[j] == '\0' && arv[0][j] == '\0')
 return (Tab[i].func);
- i++;
+i++;
 }
 return (NULL);
 }
