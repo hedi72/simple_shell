@@ -11,10 +11,10 @@ list_path *add_node(list_path **head, char *str)
 list_path *new;
 
 if (!head || !str)
-return NULL;
+return (NULL);
 new = malloc(sizeof(list_path));
 if (!new)
-return NULL;
+return (NULL);
 new->dir = str;
 new->p = NULL;
 
@@ -31,7 +31,7 @@ last = last->p;
 }
 last->p = new;
 }
-return *head;
+return (*head);
 }
 
 /**
@@ -41,9 +41,9 @@ return *head;
  */
 char *get_env(const char *name)
 {
-size_t name_len;  
- const char *env_var;
- if (!name)
+size_t name_len;
+const char *env_var;
+if (!name)
 return (NULL);
 
 name_len = 0;

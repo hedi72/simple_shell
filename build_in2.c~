@@ -1,42 +1,4 @@
-#include "shell.h"
-/**
- * cur_env - print the current environment
- * @arv: array of arg
- */
-void cur_env(char **arv __attribute__((unused)))
-{
-int i = 0;
-while (environ[i] != NULL)
-{
-_puts(environ[i++]);
-_puts("\n");
-}
-}
-/**
- * _atoi - convert string into an integer
- * @s: pointer to a string
- * Return: integer
- */
-int _atoi(char *s)
-{
-int i = 0;
-int in = 0;
-int sig = 1;
-int x = 0;
-if (s[i] == '-')
-{
-sig = -1;
-i++;
-}
-while (s[i] >= '0' && s[i] <= '9')
-{
-in = (in * 10) + (s[i] - '0');
-i++;
-}
-x = sig *in;
-return (x);
-}
-
+#include "shell.c"
 /**
  * _unsetenv - remove an envir variable
  * @arv: array of words
