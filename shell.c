@@ -2,7 +2,7 @@
 
 /**
  * signal_handler - check if ctrl c is pressed
- * @ sig_num: int
+ * @signal_num: int
  */
 void signal_handler(int signal_num)
 {
@@ -76,7 +76,7 @@ free(buff);
 
 /**
  * main - principal function shell
- * return: 0 on success
+ * Return: 0 on success
  */
 int main(void)
 {
