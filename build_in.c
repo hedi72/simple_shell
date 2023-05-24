@@ -44,15 +44,15 @@ i++;
 return (sig *in);
 }
 
-/**
- * _setenv - intialize a new env variable or modify an existing
- * @arv: array of xords
- */
 
-void _setenv(char **arv)
+/**
+ * _unsetenv - remove an envir variable
+ * @arv: array of words
+ */
+void _unsetenv(char **arv)
 {
-int i, j, k;
-if (!arv[1] || !arv[2])
+int i, j;
+if (!arv[1])
 {
 perror(get_env("_"));
 return;
@@ -70,58 +70,17 @@ j++;
 }
 if (arv[1][j] == '\0')
 {
-k = 0;
-while (arv[2][k])
+free(environ[i]);
+environ[i] = environ[i + 1];
+while (environ[i])
 {
-environ[i][j + 1 + k] = arv[2][k];
-k++;
+environ[i] = environ[i + 1];
+i++;
 }
-environ[i][j + 1 + k] = '\0';
 return;
-}}}
-if (!environ[i])
-{
-environ[i] = concat_all(arv[1], "=", arv[2]);
-environ[i + 1] = '\0';
 }
 }
-
-/**
- * _unsetenv - remove an envir variable
- * @arv: array of words
- */
-void _unsetenv(char **arv)
-{
-  int i, j;
-  if (!arv[1])
-    {
-      perror(get_env("_"));
-      return;
-    }
-  for (i = 0; environ[i]; i++)
-    {
-      j = 0;
-      if (arv[1][j] == environ[i][j])
-	{
-	  while (arv[1][j])
-	    {
-	      if (arv[1][j] != environ[i][j])
-		break;
-	      j++;
-	    }
-	  if (arv[1][j] == '\0')
-	    {
-	      free(environ[i]);
-	      environ[i] = environ[i + 1];
-	      while (environ[i])
-		{
-		  environ[i] = environ[i +1];
-		  i++;
-		}
-	      return;
-	    }
-	}
-    }
+}
 }
 
 /**
