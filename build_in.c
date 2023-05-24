@@ -80,6 +80,46 @@ i++;
 return;
 }
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * _unsetenv - removes an envir variable
+ * @arv: array of words
+ * Return: Nothing
+ */
+void _unsetenv(char **arv)
+{
+int i, j;
+if (!arv[1])
+{
+perror(get_env("_"));
+return;
+}
+for (i = 0; environ[i]; i++)
+{
+j = 0;
+if (arv[1][j] == environ[i][j])
+{
+while (arv[1][j])
+{
+if (arv[1][j] != environ[i][j])
+break;
+j++;
+}
+if (arv[1][j] == '\0')
+{
+free(environ[i]);
+environ[i] = environ[i + 1];
+while (environ[i])
+{
+environ[i] = environ[i + 1];
+i++;
+}
+return;
+}
+}
+>>>>>>> af45dc915aea00264f1b04ea73b0df4a8db0047d
 }
 }
 
