@@ -12,7 +12,6 @@ while (environ[i] != NULL)
 _puts(environ[i++]);
 _puts("\n");
 }
-int i = 0;
 while (environ[i] != NULL)
 {
 _puts(environ[i++]);
