@@ -2,7 +2,7 @@
 
 /**
  * builtin_handler - Handles built-in commands in the shell.
- * @command: The original command entered by the user.
+ * @command: original command entered by the user.
  * @command_array: An array of strings containing the parsed command.
  * @current: A pointer to a list_paths struct representing the current path.
  * @shell_name: The name of the shell.
