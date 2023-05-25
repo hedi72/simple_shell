@@ -1,14 +1,18 @@
 #include "shell.h"
 
 /**
- * check_acces - Checks the access.
- * @command: Line from user.
- * @current: Current path.
- *
- * Return: Full path of the command.
- */
+  * check_access - a function that checks the access
+  * for a given command in the command line.
+  *
+  * @current: current path turned into linked lists
+  * @command:  line from user entered by getline and path list
+  *
+  * Return: full path of the command
+  * if it is found be able to access and execute it
+  * if fails returns NULL
+  */
 
-char *check_acces(char *command, list_paths *current)
+char *check_access(char *command, list_paths *current)
 {
 	char *full_path;
 	int found_path, length, command_length, current_path_legnth;
@@ -20,7 +24,8 @@ char *check_acces(char *command, list_paths *current)
 		current_path_legnth = _strlen(current->path);
 		command_length = _strlen(command);
 		length = (current_path_legnth + command_length + 2);
-		full_path = (char *)malloc(length * sizeof(char))
+	
+		full_path = (char *)malloc(length * sizeof(char));
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
@@ -41,13 +46,13 @@ char *check_acces(char *command, list_paths *current)
 		return (NULL);
 }
 /**
-* check_input_f - checks if a file exists and is readable.
+* check_input_file - checks if a file exists and is readable.
 * @file: name of file to check
 * This function checks if the file specified by
 * @file exists and is readable.
 *Return: pointer to @file if it exists
 */
-char *check_input_f(char *file)
+char *check_input_file(char *file)
 {
 char *command;
 command = _strdup(file);
@@ -56,13 +61,15 @@ command = _strdup(file);
 }
 
 /**
- * check_mod - a function that checks the mode of my terminal
+ * check_mode - a function that checks the mode of my terminal
  *
  * @argc: arguments count
  *
- * Return: 1 in case of interactive mod
+ * Return: 1 in case of interactive mode
+ * 0 in case of non interactive mode
+ * -1 in case of error
 */
-int check_mod(int argc)
+int check_mode(int argc)
 {
 	struct stat stdin_stat;
 
@@ -74,32 +81,4 @@ int check_mod(int argc)
 	if ((argc >= 1))
 		return (NON_INTERACTIVE_MODE);
 	return (ERROR);
-}
-#include"shell.h"
-/**
-* directory_check - checks if a directory exists and is accessible
-* @command: the name of the directory to check
-* @argument_vector:.
-* @count:.
-* @command_array:.
-* @status:.
-* @command_line_before:.
-* Return: 1 if the directory exists and is accessible, else 0
-*/
-int dir_check(char *command, char **argument_vector, int count,
-char **command_array, int *status, char *command_line_before)
-{
-	struct stat st;
-
-if (stat(command, &st) == 0)
-{
-	if (S_ISDIR(st.st_mode))
-	{
-		print_err(argument_vector[0], count, command_array[0], PERMISSION_DENIED);
-		*status = PERMISSION_DENIED;
-		free_all(command_line_before, command_array);
-		return (0);
-	}
-}
-return (-1);
 }
