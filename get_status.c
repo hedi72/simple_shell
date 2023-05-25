@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * get_process_id - Retrieves the string representation of the current
  * process ID.
@@ -34,8 +35,8 @@ char *get_status(int n)
 
 /**
  * handle_comments - Removes comments from the input string.
- *
  * @input: The input string.
+ * Return : Nothing.
  */
 void handle_comments(char *input)
 {
