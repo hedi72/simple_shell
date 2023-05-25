@@ -18,16 +18,16 @@ void int_to_str(int n, char *str)
 	while (tmp > 0)
 	{
 		tmp /= 10;
-		i++; 
+		i++;
 	}
 	tmp = n;
 	while (i > 0)
 	{
-		str[--i] = tmp % 10 + '0'; 
-		tmp /= 10; 
+		str[--i] = tmp % 10 + '0';
+		tmp /= 10;
 
 	}
-	str[i] = '\0'; 
+	str[i] = '\0';
 
 }
 /**
@@ -58,7 +58,7 @@ char **line_to_vector(char *command, int status)
 	char *copied_line, *token, **argument_vector, *variable, *cmde;
 	int i = 0, character_count;
 
-	
+
 	if (command[0] == '\0')
 		return (NULL);
 	copied_line = _strdup(command);

@@ -40,7 +40,7 @@ void print_env(int *status)
 	}
 	/* Set the status to indicate successful completion */
 	*status = 0;
-}/**
+} /**
  * print_error - Prints an error message to the standard error stream.
  * @shell_name: The name of the shell program.
  * @count: The command count.
