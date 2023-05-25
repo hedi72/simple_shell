@@ -34,8 +34,9 @@ print_error(argv[0], count, command_array[0], NOT_FOUND);/*----lsa----*/
 }
 }
 }
+
 /**
- * noninteractive_files_handler - processes shell commands in file
+ * noninteractive_files_handler - processes shell commands in a file
  * @file_name: name of file with shell commands
  * @shell_name: name of shell to use
  * Return: pointer to char array with output
