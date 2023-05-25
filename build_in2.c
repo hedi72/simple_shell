@@ -2,12 +2,12 @@
 /**
 * directory_check - checks if a directory exists and is accessible
 * @command: the name of the directory to check
-* @argument_vector:.
+* @argument_vector: literally....
 * @count:.
 * @command_array:.
 * @status:.
 * @command_line_before:.
-* Return: 1 if the directory exists and is accessible, else 0
+* Return: 1 if the directory exists and is accessible, else read 0
 */
 int dir_check(char *command, char **argument_vector, int count,
 char **command_array, int *status, char *command_line_before)

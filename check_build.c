@@ -24,7 +24,7 @@ char *check_access(char *command, list_paths *current)
 		current_path_legnth = _strlen(current->path);
 		command_length = _strlen(command);
 		length = (current_path_legnth + command_length + 2);
-	
+
 		full_path = (char *)malloc(length * sizeof(char));
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
