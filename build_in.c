@@ -8,7 +8,7 @@
  * @shell_name: The name of the shell.
  * @count: The count of the commands entered in the shell.
  * @status: A pointer to an integer variable to set the status.
- * @env_list: A pointer to a list_paths struct representing environment.
+ * @env_list: A pointer to a list_paths struct representing environment variables.
  * @command_lines: Array of strings containing the command lines.
  * @argv: Command-line arguments.
  *

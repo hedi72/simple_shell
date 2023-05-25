@@ -6,7 +6,7 @@
  * Return: A pointer to a string representing the process ID.
  */
 
-char *get_processeid()
+char *get_processid()
 {
 	char *ppid_s;
 	pid_t pid = getpid();

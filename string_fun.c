@@ -1,8 +1,14 @@
 #include "shell.h"
-0;276;0c
+
 /**
 * _strlen - returns the length of a string
 * @s: a pointer to the string
+*
+* This function takes a pointer to a
+* string and counts the number of characters
+* in the string using a loop. It returns the length of
+* the string as an integer.
+*
 * Return: the length of the string as an integer.
 */
 int _strlen(char *s)
@@ -18,7 +24,8 @@ int _strlen(char *s)
 }
 
 /**
-* _strdup - Returns a pointer to allocated space.
+* _strdup - Returns a pointer to a newly allocated space in memory,
+* which contains a copy of the string given as a parameter.
 * @str: The string to duplicate
 * Return: If str is NULL or if malloc() fails - NULL
 */
@@ -42,8 +49,8 @@ char *_strdup(char *str)
 /**
 * _strcmp - Compares two strings.
 *
-* @s1: Pointer to the first string.
-* @s2: Pointer to the second string.
+* @s1: Pointer to the first string to be compared.
+* @s2: Pointer to the second string to be compared.
 *
 * Return: An integer less than, equal to, or greater than zero
 */
@@ -66,7 +73,7 @@ int _strcmp(char *s1, char *s2)
  *
  * @dest: destination string
  * @src: source string
- * Return: pointer to destinatio
+ * Return: pointer to destination string
  */
 char *_strcpy(char *dest, char *src)
 {
@@ -110,42 +117,48 @@ char *_strcat(char *dest, char *src)
  */
 int _atoi(char *s)
 {
-	unsigned int m, i;
-	char pos;
+	unsigned int n, i;
+	char positive;
 
 	i = 0;
-	m = 0;
+	n = 0;
+
+	/* Iterate through each character of the string */
 	while (s[i] != '\0')
 	{
+		/* Check if the character is a non-digit */
 		if (!((s[i] >= '0') && (s[i] <= '9')))
 		{
 			return (-1);
 		}
 
+		/* Check if the character is a digit */
 		if (((s[i] >= '0') && (s[i] <= '9')))
 		{
-			m = (m * 10) + (s[i] - '0');
+			n = (n * 10) + (s[i] - '0');
 		}
 		else if (s[i] == '+')
 		{
-			pos++;
+			positive++;
 		}
 
 		i++;
 	}
-	return (m);
+
+	/* Return the converted integer */
+	return (n);
 }
 
 /**
  * text_to_array - converts text to an array of strings
  *
- * @text_read: the text
+ * @text_read: the text to convert
  *
  * Return: a pointer to a char array containing the converted text
  */
 char **text_to_array(char *text_read)
 {
-	char *tok, *cmd;
+	char *token, *command;
 	char **command_lines;
 	int i;
 	unsigned int characters_count;
@@ -155,16 +168,16 @@ char **text_to_array(char *text_read)
 	i = 0;
 	characters_count = piped_characters_count(text_read, '\n');
 	command_lines = (char **)malloc((characters_count + 1) * sizeof(char *));
-	tok = strtok(text_read, "\n");
-	cmd = _strdup(tok);
-	command_lines[i++] = cmd;
-	while (tok != NULL)
+	token = strtok(text_read, "\n");
+	command = _strdup(token);
+	command_lines[i++] = command;
+	while (token != NULL)
 	{
-		tok = _strtok(NULL, "\n");
-		if (tok != NULL)
+		token = _strtok(NULL, "\n");
+		if (token != NULL)
 		{
-			cmd = _strdup(token);
-			command_lines[i++] = cmd;
+			command = _strdup(token);
+			command_lines[i++] = command;
 		}
 	}
 	free(text_read);
@@ -172,44 +185,137 @@ char **text_to_array(char *text_read)
 	return (command_lines);
 }
 /**
- * number_to_character - Converts an integer to a string.
- * @number: The integer to be converted.
- *
- * Return: The string representation of the integer,
- * or NULL on failure.
+ * int_to_str - Converts an integer to a string.
+ * @n: The integer to convert.
+ * @str: The buffer to store the resulting string.
+ * Return : nothing
  */
-
-char *number_to_character(int number)
+void int_to_str(int n, char *str)
 {
-	int count = 0, temprory = number;
-	char *copied_number;
+	int tmp;
+	int i = 0;
 
-	if (number == 0)
-		count = 1;
-	else
+	if (n == 0)
 	{
-		while (temprory != 0)
+		str[i++] = '0';
+	}
+	tmp = n;
+	while (tmp > 0)
+	{
+		tmp /= 10;
+		i++; 
+	}
+	tmp = n;
+	while (i > 0)
+	{
+		str[--i] = tmp % 10 + '0'; 
+		tmp /= 10; 
+
+	}
+	str[i] = '\0'; 
+
+}
+/**
+ * line_count - Counts the number of lines in a given string.
+ * @line: The input string.
+ * Return: The number of lines in the string.
+ */
+int line_count(char *line)
+{
+	int i = 0;
+
+	while (*line != '\0')
+	{
+		i++;
+		line++;
+	}
+	return (i);
+}
+
+/**
+ * line_vector - converts a string into an array of strings
+ * @command: the string to convert
+ * @status: an integer representing the status of the command
+ * Return: a pointer to a char array.
+ */
+char **line_vector(char *command, int status)
+{
+	char *copied_line, *token, **argument_vector, *variable, *cmde;
+	int i = 0, character_count;
+
+	
+	if (command[0] == '\0')
+		return (NULL);
+	copied_line = _strdup(command);
+	if (copied_line == NULL)
+		return (NULL); /*can't cpy*/
+	character_count = char_counter(copied_line, ' ');
+	argument_vector = malloc((character_count + 1) * sizeof(char *));
+	token = _strtok(copied_line, TOK_D);
+
+	cmde = flags_handler(token, command, argument_vector, status);
+	argument_vector[i++] = cmde;
+	while (token != NULL)
+	{
+		token = _strtok(NULL, TOK_D);
+		if (token != NULL)
 		{
-			temprory = temprory / 10;
-			count++;
+			if (_strcmp("$$", token) == 0)
+				cmde = get_processid();
+			else if (_strcmp("$?", token) == 0)
+				cmde = get__status(status);
+			else if ((token[0] == '$') && (token[1]))
+			{
+				variable = _getenvi(&token[1]);
+				if (variable)
+					cmde = _strdup(variable);
+				else
+					cmde = _strdup("");
+			}
+			else
+				cmde = _strdup(token);
+			argument_vector[i++] = cmde;
 		}
 	}
+	argument_vector[i] = NULL;
+	free(copied_line);
+	return (argument_vector);
+}
+/**
+ * flags_handler - .
+ * @token:.
+ * @command:.
+ * @argument_vector:.
+ * @status:.
+ * Return:.
+*/
+char *flags_handler(char *token, char *command,
+char **argument_vector, int status)
+{
+		char *variable, *cmde, *copied_line;
 
-	copied_number = malloc(sizeof(char) * (count + 1));
-	if (!copied_number)
+	copied_line = command;
+		if (token == NULL)
 	{
-		perror("malloc error");
+		free(argument_vector);
+		free(copied_line);
 		return (NULL);
 	}
-
-	copied_number[count] = '\0';
-
-	while (count != 0)
+	if (_strcmp("$$", token) == 0)
+		cmde = get_processid();
+	else if (_strcmp("$?", token) == 0)
+		cmde = get__status(status);
+	else if ((token[0] == '$') && (token[1]))
 	{
-		count--;
-		copied_number[count] = '0' + number % 10;
-		number = (number / 10);
+		variable = _getenvi(&token[1]);
+		if (variable)
+			cmde = _strdup(variable);
+		else
+			cmde = _strdup("");
 	}
+	else
+		cmde = _strdup(token);
 
-        return (copied_number);
+	return (cmde);
 }
+

@@ -1,11 +1,12 @@
 #include "shell.h"
 
 /**
- * check_acces - Checks the access .
- * @command: Line from user entered .
- * @current: Current path turned .
+ * check_access - Checks the access for a given command in the command line.
+ * @command: Line from user entered by getline and path list.
+ * @current: Current path turned into linked lists.
  *
- * Return: Full path of the command.
+ * Return: Full path of the command if it is found and accessible,
+ *         NULL if it fails.
  */
 
 char *check_acces(char *command, list_paths *current)
@@ -20,6 +21,7 @@ char *check_acces(char *command, list_paths *current)
 		current_path_legnth = _strlen(current->path);
 		command_length = _strlen(command);
 		length = (current_path_legnth + command_length + 2);
+	
 		full_path = (char *)malloc(length * sizeof(char));
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
@@ -77,6 +79,7 @@ int check_mod(int argc)
 		return (NON_INTERACTIVE_MODE);
 	return (ERROR);
 }
+#include"shell.h"
 /**
 * directory_check - checks if a directory exists and is accessible
 * @command: the name of the directory to check
