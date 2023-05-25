@@ -81,7 +81,7 @@ void cant_open_handler(char *program_name, int counter, char *file_name)
 /**
  * char_count - Counts the occurrences of a specific character in a string.
  * @string: The input string.
- * @character: The character to count.
+ * @character: The character to search for in the string
  * Return: The number of occurrences of variable "character" 
  * in the string "string".
  */
