@@ -1,15 +1,13 @@
 #include "shell.h"
 
 /**
-  * check_access - a function that checks the access
-  * for a given command in the command line.
-  *
-  * @current: current path turned into linked lists
-  * @command:  line from user entered by getline and path list
-  *
-  * Return: full path of the command
-  * if it is found be able to access and execute it
-  * if fails returns NULL
+  * check_access - checks the access.
+  * of a given command in the command line.
+  * @current: current path turned into linked lists.
+  * @command:  line from user entered by getline and path list.
+  * Return: full path of the command if:
+  *			it is found be able to access and execute it.
+  *			else if it fails return NULL.
   */
 
 char *check_access(char *command, list_paths *current)
@@ -62,12 +60,10 @@ command = _strdup(file);
 
 /**
  * check_mode - a function that checks the mode of my terminal
- *
- * @argc: arguments count
- *
- * Return: 1 in case of interactive mode
- * 0 in case of non interactive mode
- * -1 in case of error
+ * @argc: arguments' count
+ * Return: 1 in case of interactive mode,
+ *			0 in case of non-interactive mode,
+ *			-1 in case of error.
 */
 int check_mode(int argc)
 {
