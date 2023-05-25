@@ -1,4 +1,5 @@
 #include"shell.h"
+<<<<<<< HEAD
 
 
 /**
@@ -63,69 +64,38 @@ unsigned int piped_characters_count(char *string, char c)
 }
 /*BETTY OKAY*/
 
+=======
+>>>>>>> 72ebb0a48b53991f483f4f764cefbdcff1836f5d
 /**
- * print_envi - Prints the environment variables.
- * @status: A pointer to an integer variable to set the status.
- *
- * Each variable is printed on a separate line.
- * The 'status' parameter is used to set the status of the function.
- * Return:nothing
- */
-void print_envi(int *status)
+* directory_check - checks if a directory exists and is accessible
+* @command: the name of the directory to check
+* @argument_vector:.
+* @count:.
+* @command_array:.
+* @status:.
+* @command_line_before:.
+* Return: 1 if the directory exists and is accessible, else 0
+*/
+int dir_check(char *command, char **argument_vector, int count,
+char **command_array, int *status, char *command_line_before)
 {
-	int i;
+	struct stat st;
 
-	/* Iterate over the environment variables until a NULL is encountered */
-	for (i = 0; environ[i] != NULL; i++)
-	{
-		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
-		write(STDOUT_FILENO, "\n", 1);
-	}
-	/* Set the status to indicate successful completion */
-	*status = 0;
-}
-/**
- * print_err - Prints an error message to the standard error stream.
- * @shell_name: The name of the shell program.
- * @count: The command count.
- * @command_array: The command or argument causing the error.
- * @type_of_error: The type of error.
- * Return: nothing
- */
-
-void print_err(char *shell_name, int count,
-char *command_array, int type_of_error)
+if (stat(command, &st) == 0)
 {
-	char *counter_string;
-
-	/* Convert the command count to a string */
-	counter_string = number_to_character(count);
-
-	/* Print the shell name, command count, and colon separator */
-	write(STDERR_FILENO, shell_name, _strlen(shell_name));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, counter_string, _strlen(counter_string));
-	write(STDERR_FILENO, ": ", 2);
-
-	/* Check the type of error and print the corresponding error message */
-	if (type_of_error == EXIT_ERROR)
+	if (S_ISDIR(st.st_mode))
 	{
-		write(STDERR_FILENO, "Illegal number: ", 16);
-		write(STDERR_FILENO, command_array, _strlen(command_array));
-		write(STDERR_FILENO, "\n", 1);
+		print_error(argument_vector[0], count, command_array[0], PERMISSION_DENIED);
+		*status = PERMISSION_DENIED;
+		free_all(command_line_before, command_array);
+		return (0);
 	}
-	else if (type_of_error == NOT_FOUND)
-	{
-		write(STDERR_FILENO, "not found\n", 10);
-	}
-	else if (type_of_error == PERMISSION_DENIED)
-	{
-		write(STDERR_FILENO, "Permission denied\n", 18);
-	}
-
-	/* Free the memory allocated for the converted command count */
-	free(counter_string);
 }
+<<<<<<< HEAD
 
 
 
+=======
+return (-1);
+}
+>>>>>>> 72ebb0a48b53991f483f4f764cefbdcff1836f5d

@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * paths_linkedlist - a function that returns a linked list of paths
+ * paths_to_linkedlist - a function that returns a linked list of paths
  * tokenized from path enviroment variable (PEV).
  *
  * Return: a linked list, which contains the paths extracted
  * from the "PATH" environment variable.
 */
-list_paths *paths_linkedlist()
+list_paths *paths_to_linkedlist()
 {
 	list_paths *paths_linkedlists;
 	char *copied_variable, *path_variable, *token;
@@ -15,7 +15,7 @@ list_paths *paths_linkedlist()
 	paths_linkedlists = NULL;
 
 	/*getting the PEV and store it at a pointer to char*/
-	path_variable = _getenvi("PATH");
+	path_variable = _getenv("PATH");
 	if (path_variable == NULL)
 		return (NULL);
 	/*copying PEV to a new one to start handling it*/
@@ -27,7 +27,7 @@ list_paths *paths_linkedlist()
 	while (token != NULL)/*looping tell the end*/
 	{
 		/*adding each token in path as a node in LL */
-		add_node_end(&paths_linkedlists, token);
+		add_node(&paths_linkedlists, token);
 		/*
 		* each call will return the next token in the
 		* string until there are no more tokens left
@@ -43,12 +43,12 @@ list_paths *paths_linkedlist()
 }
 
 /**
- * add_node_end - a function that adds a new node at the beginning of a list_t list
+ * add_node - a function that adds a new node at the beginning of a list_t list
  * @head: pointer to the head of list with the type list_paths
  * @path: pointer to path.
  * Return: the address of the new element, or NULL if it failed
 */
-list_paths *add_node_end(list_paths **head, char *path)
+list_paths *add_node(list_paths **head, char *path)
 {
 	list_paths *new;
 	int i = 0;
@@ -92,10 +92,10 @@ list_paths *add_node_end(list_paths **head, char *path)
 }
 
 /**
-* freelist - Frees a singly linked list
+* free_list - Frees a singly linked list
 * @head: Pointer to the head of the list
 */
-void freelist(list_paths *head)
+void free_list(list_paths *head)
 {
 	list_paths *ptr = head;
 	list_paths *nextNode;
@@ -117,12 +117,12 @@ void freelist(list_paths *head)
 }
 
 /**
- * printlistt - prints all the elements of a list_paths list
+ * print_list - prints all the elements of a list_paths list
  * If str is NULL, print [0] (nil)
  * @h: pointer to the head of list with the type list_paths
  * Return: the number of nodes
 */
-size_t printlistt(const list_paths *h)
+size_t print_list(const list_paths *h)
 {
 	int count;
 

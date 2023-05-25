@@ -20,9 +20,9 @@ int custom_cd(char **command_array, char **argument_vector)
 		return (1);
 	}
 	if (directory == NULL || _strcmp(directory, "~") == 0)
-		directory = _getenvi("HOME");
+		directory = _getenv("HOME");
 	else if (_strcmp(directory, "-") == 0)
-		directory = _getenvi("OLDPWD");
+		directory = _getenv("OLDPWD");
 	if (chdir(directory) == -1)
 	{
 		write(STDERR_FILENO, argument_vector[0], _strlen(argument_vector[0]));

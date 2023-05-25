@@ -1,48 +1,145 @@
 #include "shell.h"
+
 /**
- * number_to_character - Converts an integer to a string.
- * @number: The integer to be converted.
- *
- * Return: The string representation of the integer,
- * or NULL on failure.
- */
-
-char *number_to_character(int number)
+* _strlen - returns the length of a string
+* @s: a pointer to the string
+*
+* This function takes a pointer to a
+* string and counts the number of characters
+* in the string using a loop. It returns the length of
+* the string as an integer.
+*
+* Return: the length of the string as an integer.
+*/
+int _strlen(char *s)
 {
-	int count = 0, temprory = number;
-	char *copied_number;
+	int length = 0;
 
-	/*Count the digits in the input number*/
-	if (number == 0)
-		count = 1;
-	else
+	while (*s != '\0')
 	{
-		while (temprory != 0)
+		length++;
+		s++;
+	}
+	return (length);
+}
+
+/**
+* _strdup - Returns a pointer to a newly allocated space in memory,
+* which contains a copy of the string given as a parameter.
+* @str: The string to duplicate
+* Return: If str is NULL or if malloc() fails - NULL
+*/
+char *_strdup(char *str)
+{
+	int len;
+	char *arr;
+
+	if (str == NULL)
+		return (NULL);
+	len = _strlen(str);
+	arr = malloc((sizeof(char) * len) + 1);
+	if (arr == NULL)
+		return (NULL);
+	arr[len] = '\0';
+	while (len--)
+		arr[len] = str[len];
+	return (arr);
+}
+
+/**
+* _strcmp - Compares two strings.
+*
+* @s1: Pointer to the first string to be compared.
+* @s2: Pointer to the second string to be compared.
+*
+* Return: An integer less than, equal to, or greater than zero
+*/
+int _strcmp(char *s1, char *s2)
+{
+		while (*s1 && *s2 && *s1 == *s2)
 		{
-			temprory = temprory / 10;
-			count++;
+			if (*s1 != *s2)
+			{
+				return ((int)*s1 - (int)*s2);
+			}
+			s1++;
+			s2++;
+		}
+
+	return ((int)*s1 - (int)*s2);
+}
+/**
+ * _strcpy - copies a string
+ *
+ * @dest: destination string
+ * @src: source string
+ * Return: pointer to destination string
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+
+/**
+ * _strcat - concats two arrays
+ *
+ * @dest: destination of concat
+ * @src: source array to concat
+ * Return: a pointer to the resulting string dest
+ */
+char *_strcat(char *dest, char *src)
+{
+	int len, i;
+
+	len = _strlen(dest);
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[len + i] = src[i];
+	}
+	dest[len + i] = '\0';
+	return (dest);
+}
+
+/**
+ * text_to_array - converts text to an array of strings
+ *
+ * @text_read: the text to convert
+ *
+ * Return: a pointer to a char array containing the converted text
+ */
+char **text_to_array(char *text_read)
+{
+	char *token, *command;
+	char **command_lines;
+	int i;
+	unsigned int characters_count;
+
+	characters_count = 0;
+	command_lines = NULL;
+	i = 0;
+	characters_count = piped_characters_count(text_read, '\n');
+	command_lines = (char **)malloc((characters_count + 1) * sizeof(char *));
+	token = strtok(text_read, "\n");
+	command = _strdup(token);
+	command_lines[i++] = command;
+	while (token != NULL)
+	{
+		token = _strtok(NULL, "\n");
+		if (token != NULL)
+		{
+			command = _strdup(token);
+			command_lines[i++] = command;
 		}
 	}
-
-	/* Allocate memory for the character array */
-	copied_number = malloc(sizeof(char) * (count + 1));
-	if (!copied_number)
-	{
-		perror("malloc error");
-		return (NULL);
-	}
-
-	/* Set the null terminator at the end of the array */
-	copied_number[count] = '\0';
-
-	/* Convert each digit of the integer to a character and store in the array */
-	while (count != 0)
-	{
-		count--;
-		copied_number[count] = '0' + number % 10;
-		number = (number / 10);
-	}
-
-	/* Return the converted string */
-	return (copied_number);
+	free(text_read);
+	command_lines[i] = NULL;
+	return (command_lines);
 }
