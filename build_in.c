@@ -10,8 +10,7 @@
  * @status: A pointer to an integer variable to set the status.
  * @env_list: list of environmental variables
  * @argv: argument vector
- * @command_lines:.
- * 
+ * @command_lines: dunno what to put here
  * Return:0 upon successful execution of a built_in command, -1 upon error
  *  (if command !build_in commad or any random error occurs).
  */
@@ -83,7 +82,8 @@ void cant_open_handler(char *program_name, int counter, char *file_name)
  * char_count - Counts the occurrences of a specific character in a string.
  * @string: The input string.
  * @character: The character to count.
- * Return: The number of occurrences of the character in the string.
+ * Return: The number of occurrences of variable "character" 
+ * in the string "string".
  */
 unsigned int char_count(char *string, char character)
 {
