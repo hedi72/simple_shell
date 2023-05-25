@@ -1,12 +1,12 @@
 #include"shell.h"
 /**
- * scan_cmd - Scans and retrieves user input command.
+ * scan_cmd_user - Scans and retrieves user input command.
  *
  * @current: A pointer to a list_paths struct representing the current path.
  *
  * Return: command after scanning.
  */
-char *scan_cmd(list_paths *current)
+char *scan_cmd_user(list_paths *current)
 {
 	ssize_t read;
 	size_t s = 0;
@@ -19,7 +19,7 @@ char *scan_cmd(list_paths *current)
 	{
 		/*write new line and free*/
 		write(STDOUT_FILENO, "\n", 1);
-		freelist(current);
+		free_list(current);
 		free(command);
 		exit(0);
 	}
@@ -59,5 +59,4 @@ char **scan_command_files(int op_mode, char *file_name, char *shell_name)
 	}
 	return (command_lines);
 }
-
 
