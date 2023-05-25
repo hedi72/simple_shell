@@ -59,4 +59,3 @@ char **scan_command_files(int op_mode, char *file_name, char *shell_name)
 	}
 	return (command_lines);
 }
-
