@@ -6,10 +6,10 @@
  * @command_array: An array of strings containing the parsed command.
  * @current: A pointer to a list_paths struct representing the current path.
  * @shell_name: The name of the shell.
- * @count: The count of the commands entered in the shell.
+ * @count: shell command counter
  * @status: A pointer to an integer variable to set the status.
  * @env_list:.
- * @argv:.
+ * @argv: argument vector
  * @command_lines:.
  *
  * Return: The function returns 0 on successful execution of a built-in command
@@ -62,9 +62,8 @@ list_paths *env_list, char **command_lines, char **argv)
 * cant_open_handler - handles errors that occur when a file cannot be opened
 * @program_name: the name of the program attempting to open the file
 * @counter: a counter variable to keep track.
-* @file_name: the name of the file that cannot be opened
-*
-* Return : void.
+* @file_name: the name of the file that cannot be opened....idan
+* Return : Nothing
 */
 void cant_open_handler(char *program_name, int counter, char *file_name)
 {
