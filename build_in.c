@@ -1,21 +1,22 @@
 #include "shell.h"
 
 /**
- * built_in_handler - Handles built-in commands in the shell.
+ * builtin_handler - Handles built-in commands in the shell.
  * @command: The original command entered by the user.
  * @command_array: An array of strings containing the parsed command.
  * @current: A pointer to a list_paths struct representing the current path.
  * @shell_name: The name of the shell.
  * @count: The count of the commands entered in the shell.
  * @status: A pointer to an integer variable to set the status.
- * @env_list: A pointer to a list_paths struct representing environment variables.
- * @command_lines: Array of strings containing the command lines.
- * @argv: Command-line arguments.
+ * @env_list:.
+ * @argv:.
+ * @command_lines:.
  *
- * Return: 0 on successful execution of a built-in command,
- *         -1 if the command is not a built-in command or an error occurs.
+ * Return: The function returns 0 on successful execution of a built-in command
+ * -1 if the command is not a built-in command,
+ * or an error occurs.
  */
-int built_in_handler(char *command, char **command_array, list_paths *current,
+int builtin_handler(char *command, char **command_array, list_paths *current,
 char *shell_name, int count, int *status,
 list_paths *env_list, char **command_lines, char **argv)
 {
@@ -39,7 +40,7 @@ list_paths *env_list, char **command_lines, char **argv)
 	switch (n)
 	{
 		case 0:
-			print_envi(status);
+			print_env(status);
 			break;
 		case 1:
 			exit_handler(command, command_array,
@@ -58,13 +59,13 @@ list_paths *env_list, char **command_lines, char **argv)
 }
 
 /**
- * cant_open_handler - Handles errors that occur when a file cannot be opened.
- * @program_name: The name of the program attempting to open the file.
- * @counter: A counter variable to keep track.
- * @file_name: The name of the file that cannot be opened.
- *
- * Return: void.
- */
+* cant_open_handler - handles errors that occur when a file cannot be opened
+* @program_name: the name of the program attempting to open the file
+* @counter: a counter variable to keep track.
+* @file_name: the name of the file that cannot be opened
+*
+* Return : void.
+*/
 void cant_open_handler(char *program_name, int counter, char *file_name)
 {
 
@@ -81,12 +82,12 @@ void cant_open_handler(char *program_name, int counter, char *file_name)
 }
 
 /**
- * char_counter - Counts the occurrences of a specific character in a string.
+ * char_count - Counts the occurrences of a specific character in a string.
  * @string: The input string.
  * @character: The character to count.
  * Return: The number of occurrences of the character in the string.
  */
-unsigned int char_counter(char *string, char character)
+unsigned int char_count(char *string, char character)
 {
 	unsigned int counter = 0;
 
@@ -98,4 +99,3 @@ unsigned int char_counter(char *string, char character)
 	}
 	return (counter + 1);
 }
-
