@@ -1,15 +1,15 @@
 #include "shell.h"
 /**
- * execute_command- Executes commands given.
+ * command_executer - Executes commands given.
  *
- * @path: The path of the command .
- * @av: array of strings .
- * @env: array of strings.
- * @status: A pointer to an integer .
+ * @path: The path of the command to execute.
+ * @av: An array of strings containing the command and its arguments.
+ * @env: An array of strings representing the environment variables.
+ * @status: A pointer to an integer variable to set the status.
  *
- * Returns: NOTHI.
+ * Returns: NOTHING.
  */
-void execute_command(char *path, char **av, char **env, int *status)
+void command_executer(char *path, char **av, char **env, int *status)
 {
 	pid_t parent_id;
 
