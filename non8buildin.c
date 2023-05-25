@@ -7,9 +7,9 @@
 * @status: Pointer to the variable 'status'
 * @count: Number of commands executed
 * @current: Pointer to the list_paths structure
-* @argv: Array of command-line arguments
+* @argv: Array of command-line arguments (argument vector)
 * This function handles non-builtin commands in the shell
-* by checking the access permissions.
+* by checking the access permissions of the commands.
 */
 void nonbuiltin_hndler(char **command_array, char *env[], int *status,
 						int count, list_paths *current, char *argv[])
