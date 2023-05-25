@@ -11,10 +11,9 @@
  * @env_list:.
  * @argv: argument vector
  * @command_lines:.
- *
- * Return: The function returns 0 on successful execution of a built-in command
- * -1 if the command is not a built-in command,
- * or an error occurs.
+ * 
+ * Return:0 upon successful execution of a built_in command, -1 upon error
+ *  (if command !build_in commad or any random error occurs).
  */
 int builtin_handler(char *command, char **command_array, list_paths *current,
 char *shell_name, int count, int *status,
