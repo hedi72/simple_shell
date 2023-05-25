@@ -1,12 +1,11 @@
 #include "shell.h"
 
 /**
- * check_access - Checks the access for a given command in the command line.
- * @command: Line from user entered by getline and path list.
- * @current: Current path turned into linked lists.
+ * check_acces - Checks the access.
+ * @command: Line from user.
+ * @current: Current path.
  *
- * Return: Full path of the command if it is found and accessible,
- *         NULL if it fails.
+ * Return: Full path of the command.
  */
 
 char *check_acces(char *command, list_paths *current)
@@ -21,8 +20,7 @@ char *check_acces(char *command, list_paths *current)
 		current_path_legnth = _strlen(current->path);
 		command_length = _strlen(command);
 		length = (current_path_legnth + command_length + 2);
-	
-		full_path = (char *)malloc(length * sizeof(char));
+		full_path = (char *)malloc(length * sizeof(char))
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
@@ -62,9 +60,7 @@ command = _strdup(file);
  *
  * @argc: arguments count
  *
- * Return: 1 in case of interactive mode
- * 0 in case of non interactive mode
- * -1 in case of error
+ * Return: 1 in case of interactive mod
 */
 int check_mod(int argc)
 {

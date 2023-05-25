@@ -1,3 +1,4 @@
+#include "shell.h"
 /**
  * number_to_character - Converts an integer to a string.
  * @number: The integer to be converted.
