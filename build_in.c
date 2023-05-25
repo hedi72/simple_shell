@@ -8,7 +8,7 @@
  * @shell_name: The name of the shell.
  * @count: shell command counter
  * @status: A pointer to an integer variable to set the status.
- * @env_list:.
+ * @env_list: list of environmental variables
  * @argv: argument vector
  * @command_lines:.
  * 
