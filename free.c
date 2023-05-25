@@ -41,13 +41,13 @@ list_paths *env, char **command_lines)
 				else
 				{
 					*status = EXIT_ERROR;
-					print_err(shell_name, count, command_array[1], EXIT_ERROR);
+					print_error(shell_name, count, command_array[1], EXIT_ERROR);
 				}
 			}
 			else
 			{
 				*status = EXIT_ERROR;
-				print_err(shell_name, count, command_array[1], EXIT_ERROR);
+				print_error(shell_name, count, command_array[1], EXIT_ERROR);
 			}
 		}
 	}
@@ -71,8 +71,8 @@ void free_whole(char **command_lines, int count, list_paths *env,
 		if (command_lines)
 			free(command_lines);
 	}
-	freelist(env);
-	freelist(current);
+	free_list(env);
+	free_list(current);
 	free_all(command, command_array);
 }
 
@@ -87,16 +87,16 @@ void free_whole(char **command_lines, int count, list_paths *env,
 void free_all(char *command, char **command_array)
 {
 	free(command);
-	free_arr(command_array);
+	free_array(command_array);
 }
 
 /**
- * free_arr - Frees memory allocated for an array of strings.
+ * free_array - Frees memory allocated for an array of strings.
  * @argv: The array of strings to be freed.
  * Return : nothing
  */
 
-void free_arr(char **argv)
+void free_array(char **argv)
 {
 	char **current_character;
 
@@ -141,5 +141,4 @@ void free_vector(char **vector)
 	free(vector);
 
 }
-
 
