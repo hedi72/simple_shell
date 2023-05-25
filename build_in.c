@@ -1,105 +1,101 @@
 #include "shell.h"
 
 /**
- * cur_env - print the current environment
- * @arv: array of arg
+ * built_in_handler - Handles built-in commands in the shell.
+ * @command: The original command entered by the user.
+ * @command_array: An array of strings containing the parsed command.
+ * @current: A pointer to a list_paths struct representing the current path.
+ * @shell_name: The name of the shell.
+ * @count: The count of the commands entered in the shell.
+ * @status: A pointer to an integer variable to set the status.
+ * @env_list: A pointer to a list_paths struct representing environment.
+ * @command_lines: Array of strings containing the command lines.
+ * @argv: Command-line arguments.
+ *
+ * Return: 0 on successful execution of a built-in command,
+ *         -1 if the command is not a built-in command or an error occurs.
  */
-void cur_env(char **arv __attribute__((unused)))
+int built_in_handler(char *command, char **command_array, list_paths *current,
+char *shell_name, int count, int *status,
+list_paths *env_list, char **command_lines, char **argv)
 {
-int i = 0;
-while (environ[i] != NULL)
-{
-_puts(environ[i++]);
-_puts("\n");
-}
-while (environ[i] != NULL)
-{
-_puts(environ[i++]);
-_puts("\n");
-}
+	int i, n;
+	char *built_in[] = {"env", "exit", "cd", "setenv"};
+
+	n = -1;
+
+	for (i = 0; i < 4; i++)
+	{
+		if (_strcmp(built_in[i], command_array[0]) == 0)
+		{
+			n = i;
+			break;
+		}
+	}
+
+	if (n == -1)
+		return (n);
+
+	switch (n)
+	{
+		case 0:
+			print_envi(status);
+			break;
+		case 1:
+			exit_handler(command, command_array,
+			current, shell_name, count, status, env_list, command_lines);
+			break;
+		case 2:
+			custom_cd(command_array, argv);
+			break;
+		case 3:
+			custom_setenv(command_array[1], command_array[2], current);
+			break;
+		default:
+			return (-1);
+	}
+	return (0);
 }
 
 /**
- * _atoi - convert string into an integer
- * @s: pointer to a string
- * Return: integer
+ * cant_open_handler - Handles errors that occur when a file cannot be opened.
+ * @program_name: The name of the program attempting to open the file.
+ * @counter: A counter variable to keep track.
+ * @file_name: The name of the file that cannot be opened.
+ *
+ * Return: void.
  */
-int _atoi(char *s)
+void cant_open_handler(char *program_name, int counter, char *file_name)
 {
-int i = 0;
-int in = 0;
-int sig = 1;
 
-if (s[i] == '-')
-{
-sig = -1;
-i++;
-}
-while (s[i] >= '0' && s[i] <= '9')
-{
-in = (in * 10) + (s[i] - '0');
-i++;
-}
-return (sig *in);
-}
+	char *counter_s;
 
-
-/**
- * _unsetenv - remove an envir variable
- * @arv: array of words
- */
-void _unsetenv(char **arv)
-{
-int i, j;
-if (!arv[1])
-{
-perror(get_env("_"));
-return;
-}
-for (i = 0; environ[i]; i++)
-{
-j = 0;
-if (arv[1][j] == environ[i][j])
-{
-while (arv[1][j])
-{
-if (arv[1][j] != environ[i][j])
-break;
-j++;
-}
-if (arv[1][j] == '\0')
-{
-free(environ[i]);
-environ[i] = environ[i + 1];
-while (environ[i])
-{
-environ[i] = environ[i + 1];
-i++;
-}
-return;
-}
-}
-}
+	counter_s = number_to_character(counter);
+	write(STDERR_FILENO, program_name, _strlen(program_name));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, counter_s, _strlen(counter_s));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, "Can't open ", 11);
+	write(STDERR_FILENO, file_name, _strlen(file_name));
+	write(STDERR_FILENO, "\n", 1);
 }
 
 /**
- * exiit - exit the shell
- * @arv: array of words
+ * char_counter - Counts the occurrences of a specific character in a string.
+ * @string: The input string.
+ * @character: The character to count.
+ * Return: The number of occurrences of the character in the string.
  */
-void exiit(char **arv)
+unsigned int char_counter(char *string, char character)
 {
-int i, n;
-if (arv[1] != NULL)
-{
-n = _atoi(arv[1]);
-n = (n <= -1) ? 2 : n;
-free_arv(arv);
-exit(n);
+	unsigned int counter = 0;
+
+	while (*string != '\0')
+	{
+		if (*string != character && *(string + 1) == character)
+			counter++;
+		string++;
+	}
+	return (counter + 1);
 }
-for (i = 0; arv[i] != NULL; i++)
-{
-free(arv[i]);
-}
-free(arv);
-exit(0);
-}
+

@@ -1,119 +1,121 @@
 #include "shell.h"
 
 /**
- * add_node - add a new node at the end
- * @head: pointer to pointer
- * @str: pointer to string
- * Return: address of the new node
- */
-list_path *add_node(list_path **head, char *str)
-{
-list_path *new;
-
-if (!head || !str)
-return (NULL);
-new = malloc(sizeof(list_path));
-if (!new)
-return (NULL);
-new->dir = str;
-new->p = NULL;
-
-if (!*head)
-{
-*head = new;
-}
-else
-{
-list_path *last = *head;
-while (last->p)
-{
-last = last->p;
-}
-last->p = new;
-}
-return (*head);
-}
-
-/**
- * get_env - get the vlue of the variable
- * @name: name of the variable
- * Return: string of value
- */
-char *get_env(const char *name)
-{
-size_t name_len;
-const char *env_var;
-if (!name)
-return (NULL);
-
-name_len = 0;
-while ((env_var = environ[name_len]) != NULL)
-{
-size_t i = 0;
-while (name[i] && name[i] == env_var[i])
-i++;
-if (name[i] == '\0' && env_var[i] == '=')
-return ((char *)(env_var + i + 1));
-name_len++;
-}
-return (NULL);
-}
-
-
-/**
-* linkpath - create a linked listfor path
-* @path: string of path
-* Return: pointer to the created link
+ * paths_linkedlist - a function that returns a linked list of path.
+ * Return: a linked path.
 */
-list_path *linkpath(char *path)
+list_paths *paths_linkedlist()
 {
-list_path *head = '\0';
-char *token;
-char *cpath = _strdup(path);
-token = strtok(cpath, ":");
-while (token)
-{
-head = add_node(&head, token);
-token = strtok(NULL, ":");
-}
-return (head);
+	list_paths *paths_linkedlists;
+	char *copied_variable, *path_variable, *token;
+
+	paths_linkedlists = NULL;
+	path_variable = _getenvi("PATH");
+	if (path_variable == NULL)
+		return (NULL);
+	copied_variable = _strdup(path_variable);
+	if (copied_variable == NULL)
+		return (NULL);
+	token = strtok(copied_variable, ":");
+	while (token != NULL)
+	  {
+		add_node_end(&paths_linkedlists, token);
+		
+		token = strtok(NULL, ":");
+	}
+	free(copied_variable);
+	return (paths_linkedlists);
 }
 
 /**
-* find_path - finds the pathname of a file
-* @filename: name of file
-* @head: head of linked list
-* Return: pathname of filename
+ * add_node_end - a function that adds a new node
+ * @head: pointer to the head of list
+ * @path: pointer to path.
+ * Return: the address of the new element, or NULL if it failed
 */
-char *find_path(char *filename, list_path *head)
+list_paths *add_node_end(list_paths **head, char *path)
 {
-struct stat st;
-char path[MAX_PATH_LENGTH];
-list_path *tmp = head;
-while (tmp)
-{
-snprintf(path, sizeof(path), "%s/%s", tmp->dir, filename);
-if (stat(path, &st) == 0)
-{
-return (strdup(path));
-}
-tmp = tmp->p;
-}
-return (NULL);
+	list_paths *new;
+	int i = 0;
+	char *string_path;
+	while (path[i] != '\0')
+	{
+		i++;
+	}
+	new = malloc(sizeof(list_paths));
+	if (new == NULL)
+		return (NULL);
+
+	if (path)
+	{
+	string_path = _strdup(path);
+	if (string_path == NULL)
+	{
+		free(new);
+		return (NULL);
+	}
+	new->len = i;
+	new->path = string_path;
+	}
+	else
+	{
+		new->len = 0;
+		new->path = NULL;
+	}
+	new->next = (*head);
+
+	*head = new;
+	return (new);
 }
 
 /**
- * free_list - free a list_
- * @head: pointer to our linked list
+* freelist - Frees a singly linked list
+* @head: Pointer to the head of the list
 */
-void free_list(list_path *head)
+void freelist(list_paths *head)
 {
-list_path *next;
-while (head)
-{
-next = head->p;
-free(head->dir);
-free(head);
-head = next;
+	list_paths *ptr = head;
+	list_paths *nextNode;
+
+	while (ptr != NULL)
+	{
+		nextNode = ptr->next;
+		free(ptr->path);
+		free(ptr);
+	        ptr = nextNode;
+	}
+
 }
+
+/**
+ * printlistt - prints all the elements of a list_paths list
+ * If str is NULL, print [0] (nil)
+ * @h: pointer to the head of list with the type list_paths
+ * Return: the number of nodes
+*/
+size_t printlistt(const list_paths *h)
+{
+	int count;
+
+	if (h == NULL)
+	{
+		return (0);
+	}
+	count = 0;
+	while (h)
+	{
+		if (h->path == NULL)
+		{
+			printf("[0] (nil)\n");
+			fflush(stdout);
+		}
+		else
+		{
+			printf("[%d] %s\n", h->len, h->path);
+			fflush(stdout);
+		}
+		h = h->next;
+		count++;
+	}
+	return (count);
 }

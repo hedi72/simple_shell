@@ -1,87 +1,51 @@
 #include "shell.h"
-
 /**
- * signal_handler - check if ctrl c is pressed
- * @signal_num: int
- */
-void signal_handler(int signal_num)
+* main - Function that run SHELL program
+* @argc: Argument Count.
+* @argv: Argument vector
+* @env: The shell environment
+* Return: Exit status of the program
+*/
+int main(int argc, char *argv[], char *env[])
 {
-if (signal_num == SIGINT)
-{
-_puts("\n#cisfun$ ");
-}
-}
+	int *status, count = 0, non_interactive = 1, s = 0, op_mode;
+	char *command, **command_lines, **cmd_arr = NULL;
+	list_paths *current;
 
-/**
- * _EOF - handle the end of the file
- * @len: value of the return getline
- * @buff: buffer
- */
-
-void _EOF(int len, char *buff)
-{
-if (len == -1)
-{
-if (isatty(STDIN_FILENO))
-{
-_puts("\n");
-free(buff);
-}
-exit(0);
-}
-}
-
-/**
- * handle_in - reads user input and execute commands
- * @path: value of the path env variable
- */
-void handle_in(char *path)
-{
-ssize_t len = 0;
-char *buff = NULL, *pathname, **args;
-size_t size = 0;
-list_path *head = linkpath(path);
-void (*f)(char **);
-signal(SIGINT, signal_handler);
-while (len != EOF)
-{
-_puts("#cisfun$ ");
-len = getline(&buff, &size, stdin);
-_EOF(len, buff);
-args = split_string(buff, " \n");
-if (args && args[0])
-{
-pathname = find_path(args[0], head);
-f = check_build(args);
-if (f)
-{
-f(args);
-}
-else if (!pathname)
-{
-execute_command(args);
-}
-else
-{
-free(args[0]);
-args[0] = pathname;
-execute_command(args);
-}
-}
-free_arv(args);
-}
-free_list(head);
-free(buff);
-}
-
-/**
- * main - principal function shell
- * Return: 0 on success
- */
-int main(void)
-{
-char *path = get_env("PATH");
-handle_in(path);
-free(path);
-return (0);
+	status = &s;
+	op_mode = check_mod(argc);
+	if (op_mode != INTERACTIVE_MODE)
+		command_lines = scan_command_files(op_mode, argv[1], argv[0]);
+	current = paths_linkedlist();
+	while (non_interactive && ++count)
+	{
+		if (op_mode == NON_INTERACTIVE_MODE || op_mode == NON_INTERACTIVE_PIPE)
+		{
+			if (command_lines[count - 1])
+				command = command_lines[count - 1];
+			else
+			{
+				free(command_lines);
+				break;
+			}
+		}
+		else if (op_mode == INTERACTIVE_MODE)
+			command = scan_cmd(current);
+		if (!command)
+			continue;
+		cmd_arr = line_vector(command, *status);
+		if (!cmd_arr)
+		{
+			free(command);
+			continue;
+		}
+		if (dir_check(cmd_arr[0], argv, count, cmd_arr, status, command) == 0)
+			continue;
+		if (built_in_handler(command, cmd_arr, current, argv[0],
+			count, status, NULL, command_lines, argv) != 0)
+			nonbuiltin_hondler(cmd_arr, env, status, count, current, argv);
+		free_all(command, cmd_arr);
+	}
+	freelist(current);
+	exit(*status);
 }

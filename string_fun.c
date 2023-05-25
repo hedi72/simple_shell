@@ -1,92 +1,215 @@
 #include "shell.h"
+0;276;0c
 /**
- * concat_all - concats 3 strings into a newly allocated memory
- * @name: first string
- * @sep: second string
- * @value: third string
- * Return: pointer to the new concatenated string
-*/
-char *concat_all(char *name, char *sep, char *value)
-{
-char *result;
-int l1, l2, l3, i, k;
-l1 = _strlen(name);
-l2 = _strlen(sep);
-l3 = _strlen(value);
-
-result = malloc(l1 + l2 + l3 + 1);
-if (!result)
-return ('\0');
-
-for (i = 0; name[i]; i++)
-result[i] = name[i];
-k = i;
-for (i = 0; sep[i]; i++)
-result[k + i] = sep[i];
-k += i;
-for (i = 0; value[i]; i++)
-result[k + i] = value[i];
-k += i;
-result[k] = '\0';
-return (result);
-}
-
-/**
- * _strdup - returns a pointer to a space newly allocated in memory, containing
- * a copy of the parametered string.
- * @str: pointer to a string.
- * Return: pointer to the string.
-*/
-char *_strdup(char *str)
-{
-int i, l;
-char *new;
-if (!str)
-return ('\0');
-for (l = 0; str[l] != '\0';)
-l++;
-new = malloc(sizeof(char) * l + 1);
-if (!new)
-return ('\0');
-for (i = 0; i < l; i++)
-new[i] = str[i];
-new[l] = str[l];
-return (new);
-}
-
-/**
- * _strlen - returns the length of a string
- * @s: pointer to a string of characters
- * Return: length of the string upon success, else 0
+* _strlen - returns the length of a string
+* @s: a pointer to the string
+* Return: the length of the string as an integer.
 */
 int _strlen(char *s)
 {
-int counter = 0;
-while (s[counter] != '\0')
-counter++;
-return (counter);
+	int length = 0;
+
+	while (*s != '\0')
+	{
+		length++;
+		s++;
+	}
+	return (length);
 }
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int _putchar(char c)
-{
-return (write(1, &c, 1));
-}
-
-/**
- * _puts - prints a string, followed by a newline
- * @str: pointer to a string of chars
- * Return: Nothing
+* _strdup - Returns a pointer to allocated space.
+* @str: The string to duplicate
+* Return: If str is NULL or if malloc() fails - NULL
 */
-void _puts(char *str)
+char *_strdup(char *str)
 {
-int i = 0;
-for ( ; str[i] != '\0'; i++)
-_putchar(str[i]);
+	int len;
+	char *arr;
+
+	if (str == NULL)
+		return (NULL);
+	len = _strlen(str);
+	arr = malloc((sizeof(char) * len) + 1);
+	if (arr == NULL)
+		return (NULL);
+	arr[len] = '\0';
+	while (len--)
+		arr[len] = str[len];
+	return (arr);
+}
+
+/**
+* _strcmp - Compares two strings.
+*
+* @s1: Pointer to the first string.
+* @s2: Pointer to the second string.
+*
+* Return: An integer less than, equal to, or greater than zero
+*/
+int _strcmp(char *s1, char *s2)
+{
+		while (*s1 && *s2 && *s1 == *s2)
+		{
+			if (*s1 != *s2)
+			{
+				return ((int)*s1 - (int)*s2);
+			}
+			s1++;
+			s2++;
+		}
+
+	return ((int)*s1 - (int)*s2);
+}
+/**
+ * _strcpy - copies a string
+ *
+ * @dest: destination string
+ * @src: source string
+ * Return: pointer to destinatio
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+
+/**
+ * _strcat - concats two arrays
+ *
+ * @dest: destination of concat
+ * @src: source array to concat
+ * Return: a pointer to the resulting string dest
+ */
+char *_strcat(char *dest, char *src)
+{
+	int len, i;
+
+	len = _strlen(dest);
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[len + i] = src[i];
+	}
+	dest[len + i] = '\0';
+	return (dest);
+}   
+
+/**
+ * _atoi - Converts a string to an integer.
+ * @s: The string to be converted, input by user
+ *
+ * Return: The converted integer,
+ * or -1 on conversion error.
+ */
+int _atoi(char *s)
+{
+	unsigned int m, i;
+	char pos;
+
+	i = 0;
+	m = 0;
+	while (s[i] != '\0')
+	{
+		if (!((s[i] >= '0') && (s[i] <= '9')))
+		{
+			return (-1);
+		}
+
+		if (((s[i] >= '0') && (s[i] <= '9')))
+		{
+			m = (m * 10) + (s[i] - '0');
+		}
+		else if (s[i] == '+')
+		{
+			pos++;
+		}
+
+		i++;
+	}
+	return (m);
+}
+
+/**
+ * text_to_array - converts text to an array of strings
+ *
+ * @text_read: the text
+ *
+ * Return: a pointer to a char array containing the converted text
+ */
+char **text_to_array(char *text_read)
+{
+	char *tok, *cmd;
+	char **command_lines;
+	int i;
+	unsigned int characters_count;
+
+	characters_count = 0;
+	command_lines = NULL;
+	i = 0;
+	characters_count = piped_characters_count(text_read, '\n');
+	command_lines = (char **)malloc((characters_count + 1) * sizeof(char *));
+	tok = strtok(text_read, "\n");
+	cmd = _strdup(tok);
+	command_lines[i++] = cmd;
+	while (tok != NULL)
+	{
+		tok = _strtok(NULL, "\n");
+		if (tok != NULL)
+		{
+			cmd = _strdup(token);
+			command_lines[i++] = cmd;
+		}
+	}
+	free(text_read);
+	command_lines[i] = NULL;
+	return (command_lines);
+}
+/**
+ * number_to_character - Converts an integer to a string.
+ * @number: The integer to be converted.
+ *
+ * Return: The string representation of the integer,
+ * or NULL on failure.
+ */
+
+char *number_to_character(int number)
+{
+	int count = 0, temprory = number;
+	char *copied_number;
+
+	if (number == 0)
+		count = 1;
+	else
+	{
+		while (temprory != 0)
+		{
+			temprory = temprory / 10;
+			count++;
+		}
+	}
+
+	copied_number = malloc(sizeof(char) * (count + 1));
+	if (!copied_number)
+	{
+		perror("malloc error");
+		return (NULL);
+	}
+
+	copied_number[count] = '\0';
+
+	while (count != 0)
+	{
+		count--;
+		copied_number[count] = '0' + number % 10;
+		number = (number / 10);
+	}
+
+        return (copied_number);
 }
