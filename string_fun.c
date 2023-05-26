@@ -7,29 +7,28 @@
  */
 void int_to_str(int n, char *str)
 {
-	int tmp;
-	int i = 0;
-
-	if (n == 0)
-	{
-		str[i++] = '0';
-	}
-	tmp = n;
-	while (tmp > 0)
-	{
-		tmp /= 10;
-		i++; 
-	}
-	tmp = n;
-	while (i > 0)
-	{
-		str[--i] = tmp % 10 + '0'; 
-		tmp /= 10; 
-
-	}
-	str[i] = '\0'; 
+int tmp;
+int i = 0;
+if (n == 0)
+{
+str[i++] = '0';
+}
+tmp = n;
+while (tmp > 0)
+{
+tmp /= 10;
+i++;
+}
+tmp = n;
+while (i > 0)
+{
+str[--i] = tmp % 10 + '0'; 
+tmp /= 10; 
 
 }
+str[i] = '\0'; 
+}
+
 /**
  * line_count - Counts the number of lines in a given string.
  * @line: The input string.
