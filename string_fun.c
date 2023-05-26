@@ -7,28 +7,26 @@
  */
 void int_to_str(int n, char *str)
 {
-	int tmp;
-	int i = 0;
+int tmp;
+int i = 0;
 
-	if (n == 0)
-	{
-		str[i++] = '0';
-	}
-	tmp = n;
-	while (tmp > 0)
-	{
-		tmp /= 10;
-		i++;
-	}
-	tmp = n;
-	while (i > 0)
-	{
-		str[--i] = tmp % 10 + '0';
-		tmp /= 10;
-
-	}
-	str[i] = '\0';
-
+if (n == 0)
+{
+str[i++] = '0';
+}
+tmp = n;
+while (tmp > 0)
+{
+tmp /= 10;
+i++;
+}
+tmp = n;
+while (i > 0)
+{
+str[--i] = tmp % 10 + '0';
+tmp /= 10;
+}
+str[i] = '\0';
 }
 /**
  * line_count - Counts the number of lines in a given string.
@@ -55,46 +53,43 @@ int line_count(char *line)
  */
 char **line_to_vector(char *command, int status)
 {
-	char *copied_line, *token, **argument_vector, *variable, *cmde;
-	int i = 0, character_count;
-
-
-	if (command[0] == '\0')
-		return (NULL);
-	copied_line = _strdup(command);
-	if (copied_line == NULL)
-		return (NULL); /*can't cpy*/
-	character_count = char_count(copied_line, ' ');
-	argument_vector = malloc((character_count + 1) * sizeof(char *));
-	token = _strtok(copied_line, TOK_D);
-
-	cmde = flags_handler(token, command, argument_vector, status);
-	argument_vector[i++] = cmde;
-	while (token != NULL)
-	{
-		token = _strtok(NULL, TOK_D);
-		if (token != NULL)
-		{
-			if (_strcmp("$$", token) == 0)
-				cmde = get_process_id();
-			else if (_strcmp("$?", token) == 0)
-				cmde = get_status(status);
-			else if ((token[0] == '$') && (token[1]))
-			{
-				variable = _getenv(&token[1]);
-				if (variable)
-					cmde = _strdup(variable);
-				else
-					cmde = _strdup("");
-			}
-			else
-				cmde = _strdup(token);
-			argument_vector[i++] = cmde;
-		}
-	}
-	argument_vector[i] = NULL;
-	free(copied_line);
-	return (argument_vector);
+char *copied_line, *token, **argument_vector, *variable, *cmde;
+int i = 0, character_count;
+if (command[0] == '\0')
+return (NULL);
+copied_line = _strdup(command);
+if (copied_line == NULL)
+return (NULL);
+character_count = char_count(copied_line, ' ');
+argument_vector = malloc((character_count + 1) * sizeof(char *));
+token = _strtok(copied_line, TOK_D);
+cmde = flags_handler(token, command, argument_vector, status);
+argument_vector[i++] = cmde;
+while (token != NULL)
+{
+token = _strtok(NULL, TOK_D);
+if (token != NULL)
+{
+if (_strcmp("$$", token) == 0)
+cmde = get_process_id();
+else if (_strcmp("$?", token) == 0)
+cmde = get_status(status);
+else if ((token[0] == '$') && (token[1]))
+{
+variable = _getenv(&token[1]);
+if (variable)
+cmde = _strdup(variable);
+else
+cmde = _strdup("");
+}
+else
+cmde = _strdup(token);
+argument_vector[i++] = cmde;
+}
+}
+argument_vector[i] = NULL;
+free(copied_line);
+return (argument_vector);
 }
 /**
  * flags_handler - .
