@@ -2,19 +2,17 @@
 
 /**
  * builtin_handler - Handles built-in commands in the shell.
- * @command: The original command entered by the user.
+ * @command: original command entered by the user.
  * @command_array: An array of strings containing the parsed command.
  * @current: A pointer to a list_paths struct representing the current path.
  * @shell_name: The name of the shell.
- * @count: The count of the commands entered in the shell.
+ * @count: shell command counter
  * @status: A pointer to an integer variable to set the status.
- * @env_list:.
- * @argv:.
- * @command_lines:.
- *
- * Return: The function returns 0 on successful execution of a built-in command
- * -1 if the command is not a built-in command,
- * or an error occurs.
+ * @env_list: list of environmental variables
+ * @argv: argument vector
+ * @command_lines: dunno what to put here
+ * Return:0 upon successful execution of a built_in command, -1 upon error
+ *  (if command !build_in commad or any random error occurs).
  */
 int builtin_handler(char *command, char **command_array, list_paths *current,
 char *shell_name, int count, int *status,
@@ -62,9 +60,8 @@ list_paths *env_list, char **command_lines, char **argv)
 * cant_open_handler - handles errors that occur when a file cannot be opened
 * @program_name: the name of the program attempting to open the file
 * @counter: a counter variable to keep track.
-* @file_name: the name of the file that cannot be opened
-*
-* Return : void.
+* @file_name: the name of the file that cannot be opened....idan
+* Return : Nothing
 */
 void cant_open_handler(char *program_name, int counter, char *file_name)
 {
@@ -84,8 +81,9 @@ void cant_open_handler(char *program_name, int counter, char *file_name)
 /**
  * char_count - Counts the occurrences of a specific character in a string.
  * @string: The input string.
- * @character: The character to count.
- * Return: The number of occurrences of the character in the string.
+ * @character: The character to search for in the string
+ * Return: The number of occurrences of variable "character" 
+ * in the string "string".
  */
 unsigned int char_count(char *string, char character)
 {

@@ -27,7 +27,6 @@
  * @len: length of the path
  * @next: points to the next node
 */
-
 typedef struct list_paths
 {
 	char *path;

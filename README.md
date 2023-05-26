@@ -1,6 +1,6 @@
 # simple_shell
 
-project c - simple shell with @Zainab Jimoh
+project c - simple shell with C by Mohammed Hedi Taeib && Zainab Jimoh
 
 Table of contents:
  -What is the shell ?
@@ -15,7 +15,7 @@ The "shell" typically refers to a command-line interface (CLI) program in operat
 It allows users to interact with the computer by entering commands.
 
 * About this project:
-This project is a simple version of the linux shell made by alx-holberton school taking part of the low level programming with c.
+This project is a simple version of the linux shell made by alx school taking part of the low level programming with c.
 
 * Essential functionalities of the simple shell
 

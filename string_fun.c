@@ -7,24 +7,27 @@
  */
 void int_to_str(int n, char *str)
 {
-int tmp;
-int i = 0;
-if (n == 0)
-{
-str[i++] = '0';
-}
-tmp = n;
-while (tmp > 0)
-{
-tmp /= 10;
-i++;
-}
-tmp = n;
-while (i > 0)
-{
-str[--i] = tmp % 10 + '0'; 
-tmp /= 10; 
+	int tmp;
+	int i = 0;
 
+	if (n == 0)
+	{
+		str[i++] = '0';
+	}
+	tmp = n;
+	while (tmp > 0)
+	{
+		tmp /= 10;
+		i++;
+	}
+	tmp = n;
+	while (i > 0)
+	{
+		str[--i] = tmp % 10 + '0';
+		tmp /= 10;
+
+	}
+	str[i] = '\0';
 }
 str[i] = '\0'; 
 }
@@ -57,7 +60,7 @@ char **line_to_vector(char *command, int status)
 	char *copied_line, *token, **argument_vector, *variable, *cmde;
 	int i = 0, character_count;
 
-	
+
 	if (command[0] == '\0')
 		return (NULL);
 	copied_line = _strdup(command);
