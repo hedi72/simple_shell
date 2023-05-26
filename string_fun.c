@@ -74,7 +74,7 @@ if (_strcmp("$$", token) == 0)
 cmde = get_process_id();
 else if (_strcmp("$?", token) == 0)
 cmde = get_status(status);
-else if ((token[0] == '$') && (token[1])
+else if ((token[0] == '$') && (token[1]))
 {
 variable = _getenv(&token[1]);
 if (variable)
